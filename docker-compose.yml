@@ -1,0 +1,53 @@
+version: "3"
+
+#Named volumes
+volumes:
+  database:
+  broker:
+
+#Named networks
+networks:
+  local:
+    driver: bridge
+
+services:
+  database:
+    image: postgres:14.1
+    container_name: database
+    environment:
+      POSTGRES_USER: "vote-app"
+      POSTGRES_PASSWORD: "secret"
+      PGDATA: /data/postgres
+    volumes:
+      - database:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - local
+
+  database_admin:
+    image: dpage/pgadmin4:6
+    container_name: database_admin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@pgadmin.com"
+      PGADMIN_DEFAULT_PASSWORD: "123456"
+    ports:
+      - "8888:80"
+    depends_on:
+      - database
+    networks:
+      - local
+
+  broker:
+    image: rabbitmq:3.9.13-management
+    container_name: broker
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: 123456
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - broker:/var/lib/rabbitmq/
