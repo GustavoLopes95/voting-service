@@ -19,6 +19,7 @@ public class OpenedTopic extends BaseTopic {
         topic.setTopicInfo(
                 this.getId(),
                 this.name,
+                this.secondDuration,
                 this.getAuditableInfo().getCreatedBy(),
                 this.getAuditableInfo().getCreatedAt(),
                 this.getAuditableInfo().getUpdatedBy(),
@@ -29,21 +30,10 @@ public class OpenedTopic extends BaseTopic {
         return topic;
     }
 
-    public void setNewInfoRegister(
-            String name,
-            String createdBy,
-            String lastSourcePlatform
-    ) {
-        this.generateNewTopic(
-                name,
-                createdBy,
-                lastSourcePlatform
-        );
-    }
-
     public void setInfoRegister(
             Long id,
             String name,
+            Double secondDuration,
             String createdBy,
             Instant createdAt,
             String updatedBy,
@@ -51,9 +41,10 @@ public class OpenedTopic extends BaseTopic {
             String lastSourcePlatform,
             Integer registerVersion
     ) {
-        this.setTopicInfo(
+        this.setExistsTopicInfo(
                 id,
                 name,
+                secondDuration,
                 createdBy,
                 createdAt,
                 updatedBy,

@@ -6,13 +6,16 @@ import java.time.Instant;
 
 public class ClosedTopic extends BaseTopic {
 
+    //Public Constructor
     public ClosedTopic() {
         super(TopicStatusEnum.CLOSED);
     }
 
+    //Public methods
     public void setTopicInfo(
             Long id,
             String name,
+            Double secondDuration,
             String createdBy,
             Instant createdAt,
             String updatedBy,
@@ -20,9 +23,10 @@ public class ClosedTopic extends BaseTopic {
             String lastSourcePlatform,
             Integer registerVersion
     ) {
-        this.setTopicInfo(
+        this.setExistsTopicInfo(
                 id,
                 name,
+                secondDuration,
                 createdBy,
                 createdAt,
                 updatedBy,

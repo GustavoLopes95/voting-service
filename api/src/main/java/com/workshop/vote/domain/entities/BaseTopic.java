@@ -2,6 +2,7 @@ package com.workshop.vote.domain.entities;
 
 import com.workshop.vote.domain.base.BaseDomainEntity;
 import com.workshop.vote.domain.enums.TopicStatusEnum;
+import com.workshop.vote.infra.crossCutting.data.interfaces.IAggregateRoot;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,10 +12,12 @@ import java.time.Instant;
 @Getter
 @MappedSuperclass
 @NoArgsConstructor
-public abstract class BaseTopic extends BaseDomainEntity {
+public abstract class BaseTopic extends BaseDomainEntity implements IAggregateRoot {
 
     //Protected Properties
     protected String name;
+
+    protected Double secondDuration;
 
     //Private Properties
     private TopicStatusEnum status;
@@ -25,13 +28,15 @@ public abstract class BaseTopic extends BaseDomainEntity {
     }
 
     //Private Methods
-    private void setName(String name) {
+    private void setTopicInfo(String name, Double secondDuration) {
         this.name = name;
+        this.secondDuration = secondDuration;
     }
 
     //Protected Methods
     protected void generateNewTopic(
             String name,
+            Double secondDuration,
             String createdBy,
             String lastSourcePlatform
     ) {
@@ -41,12 +46,13 @@ public abstract class BaseTopic extends BaseDomainEntity {
                 lastSourcePlatform
         );
 
-        this.setName(name);
+        this.setTopicInfo(name, secondDuration);
     }
 
-    protected void setTopicInfo(
+    protected void setExistsTopicInfo(
             Long id,
             String name,
+            Double secondDuration,
             String createdBy,
             Instant createdAt,
             String updatedBy,
@@ -65,6 +71,6 @@ public abstract class BaseTopic extends BaseDomainEntity {
                 registerVersion
         );
 
-        this.setName(name);
+        this.setTopicInfo(name, secondDuration);
     }
 }

@@ -2,8 +2,9 @@ package com.workshop.vote.domain.enums;
 
 public enum TopicStatusEnum {
     UNDEFINED(0),
-    OPENED(1),
-    CLOSED(2);
+    NEW(1),
+    OPENED(2),
+    CLOSED(3);
 
     private Integer value;
 
