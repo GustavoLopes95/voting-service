@@ -1,0 +1,4 @@
+package com.workshop.vote.infra.crossCutting.data.interfaces;
+
+public interface IRepository<T extends IAggregateRoot > {
+}
