@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.MappedSuperclass;
 import java.time.Instant;
+import java.util.Objects;
 
 @Getter
 @MappedSuperclass
@@ -72,5 +73,9 @@ public abstract class BaseTopic extends BaseDomainEntity implements IAggregateRo
         );
 
         this.setTopicInfo(name, secondDuration);
+    }
+
+    public String getHash() {
+        return ""+this.getId()+":"+status;
     }
 }

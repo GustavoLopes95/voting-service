@@ -10,6 +10,23 @@ public class NewTopic extends BaseTopic {
     }
 
     //Public Methods
+    public OpenedTopic open() {
+        var openedTopic = new OpenedTopic();
+        openedTopic.setInfoRegister(
+                null,
+                this.name,
+                this.secondDuration,
+                this.getAuditableInfo().getCreatedBy(),
+                this.getAuditableInfo().getCreatedAt(),
+                this.getAuditableInfo().getUpdatedBy(),
+                this.getAuditableInfo().getUpdatedAt(),
+                this.getAuditableInfo().getLastSourcePlatform(),
+                this.getVersion().getRegisterVersion()
+        );
+        return openedTopic;
+    }
+
+
     public void setNewInfoRegister(
             String name,
             Double secondDuration,
