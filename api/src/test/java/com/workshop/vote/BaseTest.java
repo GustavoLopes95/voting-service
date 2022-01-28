@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @ContextConfiguration(classes = TestBaseConfig.class)
-public class TestBase {
+public class BaseTest {
 
     @Autowired
     NewTopicFactory newTopicFactory;
@@ -47,5 +50,12 @@ public class TestBase {
                         1
                 )
         );
+    }
+
+    protected Collection<OpenedTopic> makeExpiredTopicCollection() {
+        var list = new Collection<OpenedTopic>();
+        for (var i = 0; i <= 5; i++) {
+            list.add
+        }
     }
 }
