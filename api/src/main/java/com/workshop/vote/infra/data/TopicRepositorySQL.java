@@ -1,8 +1,8 @@
 package com.workshop.vote.infra.data;
 
-import com.workshop.vote.domain.entities.BaseTopic;
 import com.workshop.vote.domain.entities.ClosedTopic;
 import com.workshop.vote.domain.entities.NewTopic;
+import com.workshop.vote.domain.entities.OpenedTopic;
 import com.workshop.vote.domain.interfaces.ITopicRepository;
 import com.workshop.vote.infra.data.adpter.TopicRepositoryAdapter;
 import org.springframework.stereotype.Repository;
@@ -17,13 +17,14 @@ public class TopicRepositorySQL implements ITopicRepository {
     }
 
     @Override
-    public BaseTopic findById(Long id) {
+    public NewTopic findById(Long id) {
         return null;
     }
 
     @Override
-    public void save(NewTopic topic) {
+    public OpenedTopic save(OpenedTopic topic) {
         this.adapter.save(topic);
+        return topic;
     }
 
     @Override
