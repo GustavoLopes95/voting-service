@@ -1,12 +1,14 @@
 package com.workshop.vote.domain.valueObject;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import java.time.Instant;
 
 @Getter
 @Embeddable
+@NoArgsConstructor
 public class AuditableInfoValueObject {
 
     private String createdBy;

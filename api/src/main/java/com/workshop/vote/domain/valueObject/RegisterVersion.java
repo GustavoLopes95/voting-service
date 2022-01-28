@@ -1,6 +1,7 @@
 package com.workshop.vote.domain.valueObject;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
