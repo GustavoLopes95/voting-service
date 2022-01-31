@@ -89,4 +89,8 @@ public abstract class BaseTopic extends BaseDomainEntity implements IAggregateRo
 
         this.setTopicInfo(name, expirationTime);
     }
+
+    public String getHash() {
+        return ""+this.getId()+":"+status;
+    }
 }

@@ -41,10 +41,10 @@ public class CreateTopicCommand extends BaseCommand {
             ruleFor(CreateTopicCommand::getSecondsDuration)
                     .must(not(nullValue()))
                         .withMessage("Topic duration is required!")
-                        .withFieldName("secondDuration")
+                        .withFieldName("secondsDuration")
                     .must(greaterThan(0L))
                         .withMessage("Topic duration must be greater than 0")
-                        .withFieldName("secondDuration");
+                        .withFieldName("secondsDuration");
         }
     }
 }

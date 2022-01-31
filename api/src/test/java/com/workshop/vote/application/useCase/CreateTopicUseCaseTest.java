@@ -2,8 +2,10 @@ package com.workshop.vote.application.useCase;
 
 import com.workshop.vote.TestBase;
 import com.workshop.vote.domain.entities.NewTopic;
+import com.workshop.vote.domain.entities.OpenedTopic;
 import com.workshop.vote.domain.factories.NewTopicFactory;
 import com.workshop.vote.domain.interfaces.ITopicRepository;
+import com.workshop.vote.domain.interfaces.ITopicSchedulerRepository;
 import com.workshop.vote.infra.crossCutting.messages.notifications.NotificationHandler;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,6 +29,9 @@ public class CreateTopicUseCaseTest extends TestBase {
     @MockBean
     ITopicRepository repository;
 
+    @MockBean
+    ITopicSchedulerRepository schedulerRepository;
+
     @Autowired
     private NewTopicFactory factory;
 
@@ -37,20 +42,23 @@ public class CreateTopicUseCaseTest extends TestBase {
 
     @BeforeEach
     public void setup() {
-        this.useCase = new CreateTopicUseCase(repository, factory, notificationHandler);
+        this.useCase = new CreateTopicUseCase(repository, schedulerRepository, factory, notificationHandler);
     }
 
     @Test
     @DisplayName("[USECASE] - must create a new Topic")
     public void createNewValidTopic() {
         //Scenario
+        var openedTopic = this.makeOpenedTopic();
         var command = this.makeCreateTopicCommand();
-        Mockito.doNothing().when(repository).save(Mockito.any(NewTopic.class));
+        Mockito.doReturn(openedTopic).when(repository).save(Mockito.any(OpenedTopic.class));
+        Mockito.doNothing().when(schedulerRepository).save(Mockito.any(OpenedTopic.class));
 
         //Run
         this.useCase.execute(command);
 
-        Mockito.verify(repository, Mockito.times(1)).save(Mockito.any(NewTopic.class));
+        Mockito.verify(repository, Mockito.times(1)).save(Mockito.any(OpenedTopic.class));
+        Mockito.verify(schedulerRepository, Mockito.times(1)).save(Mockito.any(OpenedTopic.class));
     }
 
     @Test
@@ -58,17 +66,18 @@ public class CreateTopicUseCaseTest extends TestBase {
     public void createNewInvalidTopic() {
         //Scenario
         var command = this.makeInvalidCreateTopicCommand();
-
-        Mockito.doNothing().when(repository).save(Mockito.any(NewTopic.class));
+        Mockito.doNothing().when(repository).save(Mockito.any(OpenedTopic.class));
+        Mockito.doNothing().when(schedulerRepository).save(Mockito.any(OpenedTopic.class));
 
         //Run
         this.useCase.execute(command);
 
         //Asserts
-        Mockito.verify(repository, Mockito.never()).save(Mockito.any(NewTopic.class));
+        Mockito.verify(repository, Mockito.never()).save(Mockito.any(OpenedTopic.class));
+        Mockito.verify(schedulerRepository, Mockito.never()).save(Mockito.any(OpenedTopic.class));
         assertThat(this.notificationHandler.hasNotification()).isTrue();
 
         var notification = new ArrayList<>(this.notificationHandler.getNotification());
-        assertThat(notification).extracting("field").contains("name", "secondDuration");
+        assertThat(notification).extracting("field").contains("name", "secondsDuration");
     }
 }

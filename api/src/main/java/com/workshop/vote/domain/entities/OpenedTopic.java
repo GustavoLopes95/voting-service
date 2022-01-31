@@ -22,6 +22,7 @@ public class OpenedTopic extends BaseTopic {
                 this.getId(),
                 this.name,
                 this.expirationTime,
+                Instant.now(), //closedTime
                 this.getAuditableInfo().getCreatedBy(),
                 this.getAuditableInfo().getCreatedAt(),
                 this.getAuditableInfo().getUpdatedBy(),
