@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -25,7 +28,7 @@ public class BaseTest {
     OpenedTopicFactory openedTopicFactory;
 
     public CreateTopicCommand makeCreateTopicCommand() {
-        return new CreateTopicCommand("TopicTest", 90.0);
+        return new CreateTopicCommand("TopicTest", 90L);
     }
 
     public CreateTopicCommand makeInvalidCreateTopicCommand() {
@@ -33,7 +36,7 @@ public class BaseTest {
     }
 
     public NewTopic makeNewTopic() {
-        return newTopicFactory.create(Quartet.with("Topic test", 60.0, "username", "api-vote"));
+        return newTopicFactory.create(Quartet.with("Topic test", 60L, "username", "api-vote"));
     }
 
     public OpenedTopic makeOpenedTopic() {
@@ -41,7 +44,7 @@ public class BaseTest {
                 Ennead.with(
                         1L,
                         "Topic test",
-                        60.0,
+                        LocalDateTime.now(ZoneOffset.UTC),
                         "username",
                         Instant.now(),
                         "usernameTwo",

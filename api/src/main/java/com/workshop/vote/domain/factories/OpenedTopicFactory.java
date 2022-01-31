@@ -9,19 +9,21 @@ import org.javatuples.Triplet;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Component
-public class OpenedTopicFactory extends BaseFactoryWithParams<Ennead<Long, String, Double, String, Instant, String, Instant, String, Integer>, OpenedTopic> {
+public class OpenedTopicFactory extends BaseFactoryWithParams<Ennead<Long, String, LocalDateTime, String, Instant, String, Instant, String, Integer>, OpenedTopic> {
 
     @Override
     public OpenedTopic create(
-            Ennead<Long, String, Double, String, Instant, String, Instant, String, Integer> params
+            Ennead<Long, String, LocalDateTime, String, Instant, String, Instant, String, Integer> params
     ) {
         var entity = new OpenedTopic();
         entity.setInfoRegister(
             params.getValue0(), //id
             params.getValue1(), //name
-            params.getValue2(), //secondDuration
+            params.getValue2(), //expirationTime
             params.getValue3(), //createdBy
             params.getValue4(), //createdAt
             params.getValue5(), //updatedBy

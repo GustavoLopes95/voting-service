@@ -3,6 +3,7 @@ package com.workshop.vote.domain.entities;
 import com.workshop.vote.domain.enums.TopicStatusEnum;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class ClosedTopic extends BaseTopic {
 
@@ -23,7 +24,7 @@ public class ClosedTopic extends BaseTopic {
     public void setTopicInfo(
             Long id,
             String name,
-            Double secondDuration,
+            LocalDateTime expirationTime,
             Instant closedTime,
             String createdBy,
             Instant createdAt,
@@ -35,7 +36,7 @@ public class ClosedTopic extends BaseTopic {
         this.setExistsTopicInfo(
                 id,
                 name,
-                secondDuration,
+                expirationTime,
                 createdBy,
                 createdAt,
                 updatedBy,
