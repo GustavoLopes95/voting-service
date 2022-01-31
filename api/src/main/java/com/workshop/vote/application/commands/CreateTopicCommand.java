@@ -16,13 +16,11 @@ import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull
 @NoArgsConstructor
 public class CreateTopicCommand extends BaseCommand {
 
-    @NotEmpty( message = "Topic name is required!")
     private String name;
 
-    @NotEmpty( message = "Topic duration is required!")
-    private Double secondsDuration;
+    private Long secondsDuration;
 
-    public CreateTopicCommand(String topicName, Double secondsDuration) {
+    public CreateTopicCommand(String topicName, Long secondsDuration) {
         this.name = topicName;
         this.secondsDuration = secondsDuration;
     }
@@ -44,7 +42,7 @@ public class CreateTopicCommand extends BaseCommand {
                     .must(not(nullValue()))
                         .withMessage("Topic duration is required!")
                         .withFieldName("secondsDuration")
-                    .must(greaterThan(0.00))
+                    .must(greaterThan(0L))
                         .withMessage("Topic duration must be greater than 0")
                         .withFieldName("secondsDuration");
         }

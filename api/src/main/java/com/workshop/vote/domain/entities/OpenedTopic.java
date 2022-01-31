@@ -4,6 +4,8 @@ import com.workshop.vote.domain.enums.TopicStatusEnum;
 import lombok.Getter;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 public class OpenedTopic extends BaseTopic {
@@ -19,7 +21,7 @@ public class OpenedTopic extends BaseTopic {
         topic.setTopicInfo(
                 this.getId(),
                 this.name,
-                this.secondDuration,
+                this.expirationTime,
                 Instant.now(), //closedTime
                 this.getAuditableInfo().getCreatedBy(),
                 this.getAuditableInfo().getCreatedAt(),
@@ -34,7 +36,7 @@ public class OpenedTopic extends BaseTopic {
     public void setInfoRegister(
             Long id,
             String name,
-            Double secondDuration,
+            LocalDateTime expirationTime,
             String createdBy,
             Instant createdAt,
             String updatedBy,
@@ -45,7 +47,7 @@ public class OpenedTopic extends BaseTopic {
         this.setExistsTopicInfo(
                 id,
                 name,
-                secondDuration,
+                expirationTime,
                 createdBy,
                 createdAt,
                 updatedBy,
