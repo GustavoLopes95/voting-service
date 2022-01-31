@@ -2,6 +2,8 @@ package com.workshop.vote.domain.entities;
 
 import com.workshop.vote.domain.enums.TopicStatusEnum;
 
+import java.time.ZonedDateTime;
+
 public class NewTopic extends BaseTopic {
 
     //Public Constructor
@@ -12,15 +14,15 @@ public class NewTopic extends BaseTopic {
     //Public Methods
     public void setNewInfoRegister(
             String name,
-            Double secondDuration,
+            Long expirationTime,
             String createdBy,
             String lastSourcePlatform
     ) {
         this.generateNewTopic(
-                name,
-                secondDuration,
-                createdBy,
-                lastSourcePlatform
+            name,
+            expirationTime,
+            createdBy,
+            lastSourcePlatform
         );
     }
 

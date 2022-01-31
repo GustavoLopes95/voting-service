@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.MappedSuperclass;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Getter
 @MappedSuperclass
@@ -17,7 +19,7 @@ public abstract class BaseTopic extends BaseDomainEntity implements IAggregateRo
     //Protected Properties
     protected String name;
 
-    protected Double secondDuration;
+    protected LocalDateTime expirationTime;
 
     //Private Properties
     private TopicStatusEnum status;
@@ -28,15 +30,29 @@ public abstract class BaseTopic extends BaseDomainEntity implements IAggregateRo
     }
 
     //Private Methods
-    private void setTopicInfo(String name, Double secondDuration) {
+    private void setExpirationTime(Long expirationTime) {
+        var instant = LocalDateTime.now(ZoneOffset.UTC);
+        this.expirationTime = instant.plusSeconds(expirationTime);
+    }
+
+    private void setExpirationTime(LocalDateTime expirationTime) {
+        this.expirationTime = expirationTime;
+    }
+
+    private void setTopicInfo(String name, Long expirationTime) {
         this.name = name;
-        this.secondDuration = secondDuration;
+        this.setExpirationTime(expirationTime);
+    }
+
+    private void setTopicInfo(String name, LocalDateTime expirationTime) {
+        this.name = name;
+        this.setExpirationTime(expirationTime);
     }
 
     //Protected Methods
     protected void generateNewTopic(
             String name,
-            Double secondDuration,
+            Long expirationTime,
             String createdBy,
             String lastSourcePlatform
     ) {
@@ -46,13 +62,13 @@ public abstract class BaseTopic extends BaseDomainEntity implements IAggregateRo
                 lastSourcePlatform
         );
 
-        this.setTopicInfo(name, secondDuration);
+        this.setTopicInfo(name, expirationTime);
     }
 
     protected void setExistsTopicInfo(
             Long id,
             String name,
-            Double secondDuration,
+            LocalDateTime expirationTime,
             String createdBy,
             Instant createdAt,
             String updatedBy,
@@ -71,6 +87,6 @@ public abstract class BaseTopic extends BaseDomainEntity implements IAggregateRo
                 registerVersion
         );
 
-        this.setTopicInfo(name, secondDuration);
+        this.setTopicInfo(name, expirationTime);
     }
 }
