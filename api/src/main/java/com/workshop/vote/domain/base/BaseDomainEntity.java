@@ -1,7 +1,7 @@
 package com.workshop.vote.domain.base;
 
 import com.workshop.vote.domain.valueObject.AuditableInfoValueObject;
-import com.workshop.vote.domain.valueObject.RegisterVersion;
+import com.workshop.vote.domain.valueObject.RegisterVersionValueObject;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,16 +23,16 @@ public class BaseDomainEntity {
 
     private AuditableInfoValueObject auditableInfo;
 
-    private RegisterVersion version;
+    private RegisterVersionValueObject version;
 
     //Private Methods
     private BaseDomainEntity generateNewRegisterVersion() {
-        version = new RegisterVersion();
+        version = new RegisterVersionValueObject();
         return this;
     }
 
     private BaseDomainEntity setRegisterVersionInfo(Integer registerVersion) {
-        version = new RegisterVersion(registerVersion);
+        version = new RegisterVersionValueObject(registerVersion);
         return this;
     }
 

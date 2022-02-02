@@ -1,13 +1,11 @@
 package com.workshop.vote.application.useCase;
 
-import com.workshop.vote.TestBase;
-import com.workshop.vote.domain.entities.NewTopic;
+import com.workshop.vote.BaseTest;
 import com.workshop.vote.domain.entities.OpenedTopic;
 import com.workshop.vote.domain.factories.NewTopicFactory;
 import com.workshop.vote.domain.interfaces.ITopicRepository;
 import com.workshop.vote.domain.interfaces.ITopicSchedulerRepository;
 import com.workshop.vote.infra.crossCutting.messages.notifications.NotificationHandler;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,15 +14,13 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-public class CreateTopicUseCaseTest extends TestBase {
+public class CreateTopicUseCaseTest extends BaseTest {
 
     @MockBean
     ITopicRepository repository;
@@ -66,7 +62,8 @@ public class CreateTopicUseCaseTest extends TestBase {
     public void createNewInvalidTopic() {
         //Scenario
         var command = this.makeInvalidCreateTopicCommand();
-        Mockito.doNothing().when(repository).save(Mockito.any(OpenedTopic.class));
+        var openedTopic = this.makeOpenedTopic();
+        Mockito.doReturn(openedTopic).when(repository).save(Mockito.any(OpenedTopic.class));
         Mockito.doNothing().when(schedulerRepository).save(Mockito.any(OpenedTopic.class));
 
         //Run

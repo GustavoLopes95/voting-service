@@ -1,14 +1,18 @@
 package com.workshop.vote.domain.entities;
 
 import com.workshop.vote.domain.enums.TopicStatusEnum;
+import lombok.Getter;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 
+@Getter
 public class ClosedTopic extends BaseTopic {
 
     //Private properties
     private Instant closedTime;
+
+    private Integer votes;
 
     //Public Constructor
     public ClosedTopic() {
@@ -16,7 +20,8 @@ public class ClosedTopic extends BaseTopic {
     }
 
     //Private methods
-    private void setClosedTime(Instant closedTime) {
+    private void setClosedTopicInfo(Integer votes, Instant closedTime) {
+        this.votes = votes;
         this.closedTime = closedTime;
     }
 
@@ -24,6 +29,7 @@ public class ClosedTopic extends BaseTopic {
     public void setTopicInfo(
             Long id,
             String name,
+            Integer votes,
             LocalDateTime expirationTime,
             Instant closedTime,
             String createdBy,
@@ -45,6 +51,6 @@ public class ClosedTopic extends BaseTopic {
                 registerVersion
         );
 
-        this.setClosedTime(closedTime);
+        this.setClosedTopicInfo(votes, closedTime);
     }
 }

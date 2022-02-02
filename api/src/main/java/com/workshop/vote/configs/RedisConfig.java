@@ -1,4 +1,4 @@
-package com.workshop.vote;
+package com.workshop.vote.configs;
 
 import com.workshop.vote.infra.data.model.TopicRedisModel;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class RedisConfig {
 
     @Bean
-    LettuceConnectionFactory redisConnectionFactory() {
+    public LettuceConnectionFactory redisConnectionFactory() {
         return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", 6379));
     }
 

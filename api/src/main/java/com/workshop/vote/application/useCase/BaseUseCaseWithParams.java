@@ -7,12 +7,10 @@ import com.workshop.vote.infra.crossCutting.messages.notifications.NotificationH
 
 import java.util.Objects;
 
-public abstract class BaseUseCaseWithParams<TParams, TOut> implements IUseCaseWithParams<TParams, TOut> {
-
-    private NotificationHandler notificationHandler;
+public abstract class BaseUseCaseWithParams<TParams, TOut> extends BaseUseCase<TOut> implements IUseCaseWithParams<TParams, TOut> {
 
     public BaseUseCaseWithParams(NotificationHandler notificationHandler) {
-        this.notificationHandler = notificationHandler;
+        super(notificationHandler);
     }
 
     @Override
@@ -21,24 +19,4 @@ public abstract class BaseUseCaseWithParams<TParams, TOut> implements IUseCaseWi
     }
 
     public abstract TOut execute(TParams params);
-
-    protected Boolean isCommandValid(BaseCommand command) {
-        if(command.isValid()) return true;
-
-        for(var error : command.getErrors()) {
-            this.notificationHandler.addNotification(
-                    new DomainNotification(
-                            error.getField(),
-                            this.toStringOrEmpty(error.getAttemptedValue()),
-                            error.getMessage()
-                    )
-            );
-        }
-        return false;
-    }
-
-    private String toStringOrEmpty(Object value) {
-        if(Objects.isNull(value)) return "";
-        return value.toString();
-    }
 }
