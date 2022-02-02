@@ -5,9 +5,11 @@ import com.workshop.vote.domain.factories.OpenedTopicFactory;
 import com.workshop.vote.infra.data.model.TopicRedisModel;
 import org.javatuples.Ennead;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
+@Component
 public class TopicRedisMapper {
 
     private OpenedTopicFactory openedTopicFactory;
@@ -18,7 +20,7 @@ public class TopicRedisMapper {
     }
 
     public TopicRedisModel toRepository(OpenedTopic topic) {
-        return new TopicRedisModel(topic.getId(), topic.getName(), topic.getStatus());
+        return new TopicRedisModel(topic.getId(), topic.getName(), topic.getStatus(), topic.getExpirationTime());
     }
 
     public OpenedTopic toDomain(TopicRedisModel model) {
@@ -26,7 +28,7 @@ public class TopicRedisMapper {
                 Ennead.with(
                         model.getId(),
                         model.getName(),
-                        60.0,
+                        model.getExpirationTime(),
                         "username",
                         Instant.now(),
                         "usernameTwo",
