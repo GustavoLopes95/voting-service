@@ -21,6 +21,22 @@ public class TopicMapper {
         this.voteMapper = voteMapper;
     }
 
+    public OpenedTopic toDomain(TopicModel model) {
+        var entity = new OpenedTopic();
+        entity.setInfoRegister(
+                model.getId(),
+                model.getName(),
+                model.getExpirationTime(),
+                model.getAuditableInfo().getCreatedBy(),
+                model.getAuditableInfo().getCreatedAt(),
+                model.getAuditableInfo().getUpdatedBy(),
+                model.getAuditableInfo().getUpdatedAt(),
+                model.getAuditableInfo().getLastSourcePlatform(),
+                model.getVersion().getRegisterVersion()
+        );
+        return entity;
+    }
+
     public TopicModel toRepository(OpenedTopic topic) {
         if(!Objects.isNull(topic.getId())) return this.existsRegisterToRepository(topic);
         return this.newRegisterToRepository(topic);
