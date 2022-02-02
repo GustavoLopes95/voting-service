@@ -43,6 +43,7 @@ public class ComputeExpiredTopicUseCaseTest extends BaseTest {
         //Scenario
         var expiredTopicCollection = this.makeExpiredTopicCollection();
         Mockito.doReturn(expiredTopicCollection).when(schedulerRepository).findAll();
+        Mockito.doNothing().when(schedulerRepository).remove(Mockito.anyString());
         Mockito.doReturn(90).when(repository).countVoteByTopicId(Mockito.any(OpenedTopic.class));
         Mockito.doNothing().when(repository).update(Mockito.any(ClosedTopic.class));
 
