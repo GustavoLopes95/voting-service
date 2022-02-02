@@ -1,6 +1,7 @@
 package com.workshop.vote;
 
 import com.workshop.vote.application.commands.CreateTopicCommand;
+import com.workshop.vote.application.commands.VoteCommand;
 import com.workshop.vote.domain.entities.NewTopic;
 import com.workshop.vote.domain.entities.OpenedTopic;
 import com.workshop.vote.domain.factories.NewTopicFactory;
@@ -31,6 +32,10 @@ public class BaseTest {
 
     public CreateTopicCommand makeInvalidCreateTopicCommand() {
         return new CreateTopicCommand("", null);
+    }
+
+    public VoteCommand makeVoteCommand() {
+        return new VoteCommand(1L);
     }
 
     public NewTopic makeNewTopic() {
