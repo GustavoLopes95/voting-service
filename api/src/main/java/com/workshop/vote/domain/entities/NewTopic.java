@@ -17,7 +17,7 @@ public class NewTopic extends BaseTopic {
         openedTopic.setInfoRegister(
                 null,
                 this.name,
-                this.secondDuration,
+                this.expirationTime,
                 this.getAuditableInfo().getCreatedBy(),
                 this.getAuditableInfo().getCreatedAt(),
                 this.getAuditableInfo().getUpdatedBy(),
