@@ -7,15 +7,15 @@ import javax.persistence.Embeddable;
 
 @Getter
 @Embeddable
-public class RegisterVersion {
+public class RegisterVersionValueObject {
 
     private Integer registerVersion;
 
-    public RegisterVersion() {
+    public RegisterVersionValueObject() {
         registerVersion = 1;
     }
 
-    public RegisterVersion(Integer registerVersion) {
+    public RegisterVersionValueObject(Integer registerVersion) {
         this.registerVersion = registerVersion;
     }
 }
