@@ -62,7 +62,8 @@ public class CreateTopicUseCaseTest extends BaseTest {
     public void createNewInvalidTopic() {
         //Scenario
         var command = this.makeInvalidCreateTopicCommand();
-        Mockito.doNothing().when(repository).save(Mockito.any(OpenedTopic.class));
+        var openedTopic = this.makeOpenedTopic();
+        Mockito.doReturn(openedTopic).when(repository).save(Mockito.any(OpenedTopic.class));
         Mockito.doNothing().when(schedulerRepository).save(Mockito.any(OpenedTopic.class));
 
         //Run

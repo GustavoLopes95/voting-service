@@ -10,12 +10,10 @@ import org.javatuples.Quartet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @ContextConfiguration(classes = TestBaseConfig.class)
@@ -56,9 +54,25 @@ public class BaseTest {
     }
 
     protected Collection<OpenedTopic> makeExpiredTopicCollection() {
-        var list = new Collection<OpenedTopic>();
-        for (var i = 0; i <= 5; i++) {
-            list.add
+        var list = new ArrayList<OpenedTopic>();
+        var instant = LocalDateTime.now(ZoneOffset.UTC);
+        var pastTime = instant.minusHours(1);
+        for (var i = 0L; i <= 5L; i++) {
+            list.add(openedTopicFactory.create(
+                    Ennead.with(
+                            i,
+                            "Topic test ".concat(String.valueOf(i)),
+                            pastTime,
+                            "username".concat(String.valueOf(i)),
+                            Instant.now(),
+                            "usernameTwo".concat(String.valueOf(i)),
+                            Instant.now(),
+                            "api-vote",
+                            1
+                    )
+                )
+            );
         }
+        return Collections.unmodifiableCollection(list);
     }
 }
