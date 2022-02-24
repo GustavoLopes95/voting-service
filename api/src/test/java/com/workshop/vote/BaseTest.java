@@ -1,7 +1,7 @@
 package com.workshop.vote;
 
-import com.workshop.vote.application.commands.CreateTopicCommand;
-import com.workshop.vote.application.commands.VoteCommand;
+import com.workshop.vote.application.inputs.CreateTopicInput;
+import com.workshop.vote.application.inputs.VoteInput;
 import com.workshop.vote.domain.entities.NewTopic;
 import com.workshop.vote.domain.entities.OpenedTopic;
 import com.workshop.vote.domain.factories.NewTopicFactory;
@@ -15,7 +15,7 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.UUID;
 
 @ContextConfiguration(classes = TestBaseConfig.class)
 public class BaseTest {
@@ -26,16 +26,16 @@ public class BaseTest {
     @Autowired
     OpenedTopicFactory openedTopicFactory;
 
-    public CreateTopicCommand makeCreateTopicCommand() {
-        return new CreateTopicCommand("TopicTest", 90L);
+    public CreateTopicInput makeCreateTopicCommand() {
+        return new CreateTopicInput("TopicTest", 90L);
     }
 
-    public CreateTopicCommand makeInvalidCreateTopicCommand() {
-        return new CreateTopicCommand("", null);
+    public CreateTopicInput makeInvalidCreateTopicCommand() {
+        return new CreateTopicInput("", null);
     }
 
-    public VoteCommand makeVoteCommand() {
-        return new VoteCommand(1L);
+    public VoteInput makeVoteCommand() {
+        return new VoteInput(1L, UUID.randomUUID(), "VOTE_MESSAGE", "vote-api");
     }
 
     public NewTopic makeNewTopic() {

@@ -1,15 +1,17 @@
 package com.workshop.vote.application.useCase;
 
-import com.workshop.vote.application.commands.VoteCommand;
+import com.workshop.vote.application.inputs.VoteInput;
 import com.workshop.vote.domain.entities.OpenedTopic;
 import com.workshop.vote.domain.interfaces.ITopicRepository;
 import com.workshop.vote.domain.valueObject.VoteValueObject;
 import com.workshop.vote.infra.crossCutting.messages.notifications.NotificationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-public class VoteUseCase extends BaseUseCaseWithParams<VoteCommand, Void> {
+@Service
+public class VoteUseCase extends BaseUseCaseWithParams<VoteInput, Void> {
 
     private ITopicRepository repository;
 
@@ -20,7 +22,7 @@ public class VoteUseCase extends BaseUseCaseWithParams<VoteCommand, Void> {
     }
 
     @Override
-    public Void execute(VoteCommand command) {
+    public Void execute(VoteInput command) {
         if(!this.isCommandValid(command)) return null;
 
         var topic = this.repository.findById(command.getTopicId());
