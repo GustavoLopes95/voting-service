@@ -8,6 +8,8 @@ import com.workshop.vote.infra.data.adpter.TopicRepositoryAdapter;
 import com.workshop.vote.infra.data.mapper.TopicMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Objects;
+
 @Repository
 public class TopicRepositorySQL implements ITopicRepository {
 
@@ -20,8 +22,10 @@ public class TopicRepositorySQL implements ITopicRepository {
     }
 
     @Override
-    public NewTopic findById(Long id) {
-        return null;
+    public OpenedTopic findById(Long id) {
+        var model = this.adapter.findById(id);
+        if(Objects.isNull(model)) return null;
+        return mapper.toDomain(model);
     }
 
     @Override
@@ -34,6 +38,11 @@ public class TopicRepositorySQL implements ITopicRepository {
     public Integer countVoteByTopicId(OpenedTopic topic) {
         var topicModel = mapper.toRepository(topic);
         return this.adapter.countVoteByTopicId(topicModel);
+    }
+
+    public void update(OpenedTopic topic) {
+        var model = mapper.toRepository(topic);
+        this.adapter.update(model);
     }
 
     @Override

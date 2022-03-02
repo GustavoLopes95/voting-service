@@ -4,7 +4,7 @@ import br.com.fluentvalidator.context.Error;
 
 import java.util.Collection;
 
-public interface ICommand {
+public interface IInput {
     Collection<Error> getErrors();
     Boolean isValid();
 }

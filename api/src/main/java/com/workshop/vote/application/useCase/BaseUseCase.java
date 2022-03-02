@@ -1,7 +1,7 @@
 package com.workshop.vote.application.useCase;
 
 import com.workshop.vote.application.useCase.interfaces.IUseCase;
-import com.workshop.vote.infra.crossCutting.messages.BaseCommand;
+import com.workshop.vote.infra.crossCutting.messages.BaseInput;
 import com.workshop.vote.infra.crossCutting.messages.notifications.DomainNotification;
 import com.workshop.vote.infra.crossCutting.messages.notifications.NotificationHandler;
 
@@ -18,7 +18,7 @@ public abstract class BaseUseCase<TOut> implements IUseCase<TOut> {
     @Override
     public abstract TOut execute();
 
-    protected Boolean isCommandValid(BaseCommand command) {
+    protected Boolean isCommandValid(BaseInput command) {
         if(command.isValid()) return true;
 
         for(var error : command.getErrors()) {
