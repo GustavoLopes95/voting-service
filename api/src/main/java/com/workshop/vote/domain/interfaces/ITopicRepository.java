@@ -8,8 +8,9 @@ import com.workshop.vote.domain.valueObject.VoteValueObject;
 import com.workshop.vote.infra.crossCutting.data.interfaces.IRepository;
 
 public interface ITopicRepository extends IRepository<BaseTopic> {
-    NewTopic findById(Long id);
+    OpenedTopic findById(Long id);
     OpenedTopic save(OpenedTopic topic);
     Integer countVoteByTopicId(OpenedTopic topic);
+    void update(OpenedTopic topic);
     void update(ClosedTopic topic);
 }

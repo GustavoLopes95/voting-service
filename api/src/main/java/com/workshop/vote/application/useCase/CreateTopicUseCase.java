@@ -1,7 +1,7 @@
 package com.workshop.vote.application.useCase;
 
 
-import com.workshop.vote.application.commands.CreateTopicCommand;
+import com.workshop.vote.application.inputs.CreateTopicInput;
 import com.workshop.vote.domain.entities.NewTopic;
 import com.workshop.vote.domain.entities.OpenedTopic;
 import com.workshop.vote.domain.factories.NewTopicFactory;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class CreateTopicUseCase extends BaseUseCaseWithParams<CreateTopicCommand, Void> {
+public class CreateTopicUseCase extends BaseUseCaseWithParams<CreateTopicInput, Void> {
 
     private ITopicRepository repository;
     private ITopicSchedulerRepository schedulerRepository;
@@ -34,7 +34,7 @@ public class CreateTopicUseCase extends BaseUseCaseWithParams<CreateTopicCommand
 
     @Override
     @Transactional
-    public Void execute(CreateTopicCommand command) {
+    public Void execute(CreateTopicInput command) {
         if(!this.isCommandValid(command)) return null;
 
         var newTopic = this.parseToNewTopic(command);
@@ -44,7 +44,7 @@ public class CreateTopicUseCase extends BaseUseCaseWithParams<CreateTopicCommand
         return null;
     }
 
-    private NewTopic parseToNewTopic(CreateTopicCommand command) {
+    private NewTopic parseToNewTopic(CreateTopicInput command) {
         return factory.create(
                 Quartet.with(command.getName(), command.getSecondsDuration(), "username", "vote-api")
         );
